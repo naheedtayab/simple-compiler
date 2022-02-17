@@ -1,8 +1,6 @@
 import enum
-from lib2to3.pgen2 import token
 import sys
 
-from pyparsing import string_start
 class LexicalAnalysis:
     def __init__(self, src):
         self.source = src + '\n'
@@ -53,12 +51,12 @@ class LexicalAnalysis:
                 self.invalid("!" + self.peek() +  "isn't a valid operator, did you mean !=")
         elif self.curr_char == '\"':
             self.next_char()
-            string_start_pos = self.curr_pos
+            str_start_pos = self.curr_pos
             while self.curr_char != '\"':
                 if self.curr_char in ['\r','\n','\t','\\','%']:
                     self.invalid("String contains illegal characters.")
                 self.next_char()
-            string_text = self.source[string_start_pos:self.curr_pos]
+            string_text = self.source[str_start_pos:self.curr_pos]
             token = Token(string_text, TokenType.STRING)
         elif self.curr_char.isdigit():
             number_start_pos = self.curr_pos
@@ -72,6 +70,7 @@ class LexicalAnalysis:
                     self.next_char()
             number = self.source[number_start_pos:self.curr_pos+1]
             token = Token(number, TokenType.NUMBER)
+        
         elif self.curr_char.isalpha():
             ident_start_pos = self.curr_pos
             while self.peek().isalnum():
@@ -82,7 +81,6 @@ class LexicalAnalysis:
                 token = Token(text, TokenType.IDENT)
             else:
                 token = Token(text, keyword)
-
                             
         elif self.curr_char == '\n':
             token = Token(self.curr_char, TokenType.NEWLINE)
@@ -91,6 +89,7 @@ class LexicalAnalysis:
         else:
             self.invalid("Unknown token: " + self.curr_char)
         self.next_char()
+        print(token.type)
         return token
 
     # Ignore whitespace when considering tokens, with the exception of new lines.
@@ -132,7 +131,7 @@ class Token:
     @staticmethod
     def check_keyword(text):
         for type in TokenType:
-            if type.name == text and (100 <= type.value < 200):
+            if type.name == text and type.value >= 100 and type.value < 200:
                 return type
         return None
 
@@ -145,7 +144,7 @@ class TokenType(enum.Enum):
 	IDENT = 2
 	STRING = 3
 	# Keywords.
-	VARIABLE = 101
+	LABEL = 101
 	GOTO = 102
 	PRINT = 103
 	INPUT = 104
