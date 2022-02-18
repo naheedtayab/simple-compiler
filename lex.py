@@ -89,7 +89,6 @@ class LexicalAnalysis:
         else:
             self.invalid("Unknown token: " + self.curr_char)
         self.next_char()
-        print(token.type)
         return token
 
     # Ignore whitespace when considering tokens, with the exception of new lines.

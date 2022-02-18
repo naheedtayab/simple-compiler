@@ -1,0 +1,13 @@
+PRINT "How many fibonacci numbers do you want?"
+INPUT nums
+PRINT ""
+
+SET a = 0
+SET b = 1
+WHILE nums > 0 REPEAT
+    PRINT a
+    SET c = a + b
+    SET a = b
+    SET b = c
+    SET nums = nums - 1
+ENDWHILE
