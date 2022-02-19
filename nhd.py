@@ -1,5 +1,6 @@
 from lex import *
 from parser import *
+from emit import *
 
 def main():
     print("NHD Version 1.0.0 - 2022")
@@ -10,9 +11,11 @@ def main():
         src = src_file.read()
     
     lex = LexicalAnalysis(src)
-    parser = Parser(lex)
+    emitter = Emitter("out.c")
+    parser = Parser(lex, emitter)
 
 
     parser.program()
-    print("Parsing completed.")
+    emitter.write_file()
+    print("Compile successful.")
 main()
