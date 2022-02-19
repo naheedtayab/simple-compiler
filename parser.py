@@ -120,6 +120,7 @@ class Parser:
         # SET
         elif self.check_token(TokenType.SET):
             self.next_token()
+
             if self.curr_token.text not in self.symbols:
                 self.symbols.add(self.curr_token.text)
                 self.emitter.header_line("float " + self.curr_token.text + ";")
@@ -136,7 +137,7 @@ class Parser:
         elif self.check_token(TokenType.INPUT):
             self.next_token()
 
-            if self.curr_token not in self.symbols:
+            if self.curr_token.text not in self.symbols:
                 self.symbols.add(self.curr_token.text)
                 self.emitter.header_line("float " + self.curr_token.text + ";")
                 print("called for: " + self.curr_token.text)
