@@ -49,6 +49,7 @@ class LexicalAnalysis:
                 token = Token(last_char + self.curr_char, TokenType.NOTEQ)
             else:
                 self.invalid("!" + self.peek() +  "isn't a valid operator, did you mean !=")
+        
         elif self.curr_char == '\"':
             self.next_char()
             str_start_pos = self.curr_pos
@@ -58,6 +59,7 @@ class LexicalAnalysis:
                 self.next_char()
             string_text = self.source[str_start_pos:self.curr_pos]
             token = Token(string_text, TokenType.STRING)
+
         elif self.curr_char.isdigit():
             number_start_pos = self.curr_pos
             while self.peek().isdigit():

@@ -1,0 +1,20 @@
+$ This is a file containing valid syntax in NHD.
+$ As you can probably tell, $ is the symbol for comments.
+$ PRINT "hello world"
+$ INPUT variable (ask for user input and scan it into this variable which will be declared if it hasn't already been)
+$ SET variable = 5
+$
+$ IF condition THEN
+$ block of statements
+$ ENDIF
+$
+$ WHILE condition REPEAT
+$ block of statements
+$ ENDWHILE
+$
+$ GOTO variable
+$
+$ LABEL variable
+$
+$ That's all there is to it so far, this covers some of the basic operations that every programming language can do,
+$ my next step is to add more complicated features such as Arrays. I would also like to maybe make use of ASTs more explicitly.
